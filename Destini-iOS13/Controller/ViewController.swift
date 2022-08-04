@@ -10,11 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var storyLabel: UILabel!
+    @IBOutlet weak var choice1Button: UIButton!
+    @IBOutlet weak var choice2Button: UIButton!
+    
+    var storyBrain = StoryBrain()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        updateUI()
+        choice1Button.titleEdgeInsets = UIEdgeInsets(top: 10,left: 20,bottom: 10,right: 20)
+        choice2Button.titleEdgeInsets = UIEdgeInsets(top: 10,left: 20,bottom: 10,right: 20)
+    }
+    
+    @IBAction func buttonChoicePressed(_ sender: UIButton) {
+        let userAnswer = sender.currentTitle!
+        
+        storyBrain.nextQuestion(userAnswer: userAnswer)
+        updateUI();
+    }
+    
+    func updateUI(){
+        storyLabel.text = storyBrain.getQuestionText()
+        choice1Button.setTitle(storyBrain.getChoice1(), for: .normal)
+        choice2Button.setTitle(storyBrain.getChoice2(), for: .normal)
     }
 
-
+    
 }
 
